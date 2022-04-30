@@ -6,4 +6,3 @@
 ## put-304: not modified(input same content)
 ## put-202: accepted 
 ## delete-400: bad request(index out of range)
-## other-method-405: method-not-allowed
