@@ -56,18 +56,28 @@ while True:
         response_data = "{} 200 OK\n\nTodoList: {}".format(method, todos)
     elif method == "POST":
         new_todo = request_data[19].split(':')[1]  # 추가할 todo 내용
-        todoList.append(new_todo)  # todo 추가
-        response_data = "{} 200 OK\n".format(method)
+        if new_todo == "":  # no_content 이면 
+            response_data = "{} 204 No Content\n".format(method)
+        else:
+            todoList.append(new_todo)  # todo 추가
+            response_data = "{} 201 Created\n".format(method)
     elif method == "PUT":
         update_todo = request_data[19].split(':')[1]  #  수정할 todo 내용
         idx = int(request_data[20])  # 수정할 index 
-        todoList[idx-1] = update_todo  # todo list 수정
-        response_data = "{} 200 OK\n".format(method)
+        if todoList[idx-1] == update_todo: # 입력한 todo와 원래 todo와 같은 내용이면
+            response_data = "{} 304 Not Modified because of same content\n".format(method)
+        else:
+            todoList[idx-1] = update_todo  # todo list 수정
+            response_data = "{} 202 Accepted\n".format(method)
     elif method == "DELETE":
         idx = int(request_data[19].split(':')[1])  #  수정할 todo 내용
-        del todoList[idx-1]
-        response_data = "{} 200 OK\n".format(method)
-
+        if idx > len(todoList):  # index의 범위를 벗어나면 
+            response_data = "{} 400 Bad Request because of out of index\n".format(method)
+        else:
+            del todoList[idx-1]
+            response_data = "{} 200 OK\n".format(method)
+    else:  # other method 입력하면
+        response_data = "{} 405 Method Not Allowed\n".format(method)
     # 받은 문자열을 다시 클라이언트로 전송(에코) 
     print(response_data)
     client_socket.send(response_data.encode())
