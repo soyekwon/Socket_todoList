@@ -78,8 +78,8 @@ while True:
         update_todo = request_data[-2].split(':')[1]  # 수정할 todo 내용
         idx = int(request_data[-1])  # 수정할 index
         if todoList[idx-1] == update_todo:  # 입력한 todo와 원래 todo와 같은 내용이면
-            response_data = "HTTP/1.1 304 Not Modified \r\nDate: {}\r\nServer: python3(windows10)\r\nConnection: Keep-Alive\r\n\r\nstatus_code: {}".format(time.ctime(time.time()), "304 Not Modified")
-                
+            print("same")
+            response_data = "HTTP/1.1 304 Not Modified \r\nDate: {}\r\nServer: python3(windows10)\r\nConnection: Keep-Alive\r\n\r\nstatus_code: {}".format(time.ctime(time.time()), "304 Not Modified (input same content) ")
         else:
             f = open("todolist.txt", 'w', encoding="UTF-8")
             for i in range(idx-1):
@@ -93,7 +93,7 @@ while True:
     elif method == "DELETE":
         idx = int(request_data[-1].split(':')[1])  # 수정할 todo 내용
         if idx > len(todoList):  # index의 범위를 벗어나면
-            response_data = "HTTP/1.1 400 Bad Request\r\nDate: {}\r\nServer: python3(windows10)\r\nConnection: Keep-Alive\r\n\r\nstatus_code: {}".format(time.ctime(time.time()), "400 Bad Request")
+            response_data = "HTTP/1.1 400 Bad Request\r\nDate: {}\r\nServer: python3(windows10)\r\nConnection: Keep-Alive\r\n\r\nstatus_code: {}".format(time.ctime(time.time()), "400 Bad Request (index out of range)")
         else:
             del todoList[idx-1]
             f = open("todolist.txt", 'w', encoding="UTF-8")

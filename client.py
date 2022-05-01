@@ -11,7 +11,7 @@ client_socket.connect((HOST, PORT))  # 지정한 HOST와 PORT를 사용하여 �
 
 while True:
     print("")
-    print("==============================================  SoyE Todo List  ==============================================")
+    print("==============================================  SoyE Todo List  ===============================================")
     print("1. list 불러오기(get) ", "2. todo 추가(post) ", "3. todo 수정(put) ", "4. todo 삭제(delete)", "5. header 요청(head)", "6. 종료")
     num = int(input("input number: "))
     todo = ""
@@ -42,17 +42,25 @@ while True:
     print("")
 
     if num == 1:
-        response_data = data.decode().split("\r\n\r\n")[1].split("\r\n")  # response message에서 body부분 추출
-        status_code = response_data[0].split(':')[1].lstrip()  # body에서 status code 추출
+        response_data_header = data.decode().split("\r\n\r\n")[0]  # response message에서 header부분 추출 
+        date = response_data_header.split("\r\n")[1].split(":")[1].split(" ")  # header에서 date 추출
+        month = date[2].strip()  # date에서 월
+        day = date[4].strip()  # date에서 일
+        day_of_week = date[1].strip()  # date에서 요일
+        response_data_body = data.decode().split("\r\n\r\n")[1].split("\r\n")  # response message에서 body부분 추출
+        status_code = response_data_body[0].split(':')[1].lstrip()  # body에서 status code 추출
+        todo_list = response_data_body[1].split(':')[1].lstrip().split("\n")   # body에서 todolist 추출
+        
         print("status code: ", end="")
         print(status_code)
-        todo_list = response_data[1].split(':')[1].lstrip()   # body에서 todolist 추출
         print("")
-        print("todo list: ")
-        print(todo_list)
+        print("------- "+ day_of_week + "day, " + month + " " + day + todo + " |todo list| -------------")  # todolist command line UI ... 
+        for i in range(len(todo_list)):
+            print("", i+1, todo_list[i])
+        print("-----------------------------------------------")
+        
     elif num == 5:
-        response_data = data.decode().split("\r\n\r\n")[0]
-        print(response_data)
+        print(response_data_header)
     else:
         status_code = data.decode().split("\r\n\r\n")[1].split(":")[1]  # body에서 status code 추출
         print("status code: ", end="")
