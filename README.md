@@ -1,4 +1,4 @@
-> ## Socket programming project (TCP base) 
+> ## **Socket programming project (TCP base)** 
 
 이번 프로젝트는 tcp기반 소켓 통신을 활용하여 다양한 request를 보내고 response를 받는 과정을 진행해보는 프로젝트이다. 내 프로젝트는 소켓 통신을 이용하여 _**Todo List**_를 만들었다. 파일 입출력을 통해 정보를 저장하고 불러오고 수정할 수 있다. 
 
