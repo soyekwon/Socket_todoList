@@ -1,7 +1,7 @@
 import socket
 
 # HOST = '172.30.1.46'
-HOST = '127.0.0.1'  # 서버의 주소
+HOST = '127.0.0.1'  # 서버의 주소 localhost
 PORT = 9999  # 서버에서 지정해 놓은 포트 번호
 
 # 소켓 객체 생성(주소 체계 -> IPv4, SOCK_STREAM -> TCP)
