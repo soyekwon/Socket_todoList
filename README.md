@@ -70,3 +70,23 @@ server와 client 모두 windows10에서 진행하였다.
 <br><br>
 ![](https://velog.velcdn.com/images/soyekwon/post/3c1fd06f-4e52-467d-bd79-b59351e34e8d/image.jpg)
 
+**DELETE 요청** (client.py) 
+<br><br>
+![](https://velog.velcdn.com/images/soyekwon/post/792b4a63-0ac9-4748-aa2b-d4c039a6cdf9/image.jpg)
+
+**DELETE 요청** (client.py) - index 범위를 벗어난 index 입력
+<br><br>
+![](https://velog.velcdn.com/images/soyekwon/post/ce66dd3e-4350-4acd-a84f-0711f5a65775/image.jpg)
+
+**DELETE 응답** (server.py) - 400 Bad Request
+<br><br>
+![](https://velog.velcdn.com/images/soyekwon/post/6c221f02-fe87-422b-96c2-f4ce23fb42b9/image.jpg)
+
+**HEAD 요청** (client.py) 
+<br><br>
+![](https://velog.velcdn.com/images/soyekwon/post/cd5db455-1dc2-477b-b253-5d98a0b3d5c9/image.jpg)
+
+**HEAD 응답** (server.py) - 200 OK
+<br><br>
+![](https://velog.velcdn.com/images/soyekwon/post/cd7904c1-25cf-449f-b169-7db65918e2ee/image.jpg)
+
