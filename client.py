@@ -19,6 +19,7 @@ while True:
     todo = ""
 
     if num == 1:
+        # request message 생성
         request_data = "GET / HTTP/1.1\r\nHost: 127.0.0.1/\r\nContent-Type: text/html\r\nConnection: keep-alive\r\nContent-Length: {}\r\n\r\n message:{}"
     elif num == 2:
         todo = input("| Add todo (공백없이 입력): ")

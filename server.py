@@ -48,15 +48,16 @@ while True:
     method = request_data[0]  # request_message에서 method 추출
 
     if method == "GET":
+         # response message 생성
         response_data = "HTTP/1.1 200 OK\r\nContent-Type:text/html\r\nConnection: keep-alive\r\nContent-Length:{}\r\nDate: {} \r\n\r\nstatus_code: {}\r\ntodo: {}".format(len("200 OK"), time.strftime('%a, %d %b %Y %H:%M:%S GMT', time.localtime(time.time())), "200 OK", todos)
     elif method == "POST":
         new_todo = request_data[-1].split(':')[1]  # 추가할 todo 내용
         if new_todo == "":  # no_content 이면
             response_data = "HTTP/1.1 204 No Content\r\nContent-Type:text/html\r\nConnection: keep-alive\r\nContent-Length:{}\r\nDate: {} \r\n\r\nstatus_code: {}".format(len("204 No Content"), time.strftime('%a, %d %b %Y %H:%M:%S GMT', time.localtime(time.time())), "204 No Content")
         else:
-            f = open("todolist.txt", 'w', encoding="UTF-8")
+            f = open("todolist.txt", 'w', encoding="UTF-8")  # txt파일을 열어서 write 하는 부분
             for i in range(len(todoList)):
-                f.write(todoList[i])
+                f.write(todoList[i])  
             f.write("\n")
             f.write(new_todo)
             f.close()
@@ -67,7 +68,7 @@ while True:
         if todoList[idx-1].split("\n")[0] == update_todo:  # 입력한 todo와 원래 todo와 같은 내용이면
             response_data = "HTTP/1.1 304 Not Modified\r\nContent-Type:text/html\r\nConnection: keep-alive\r\nContent-Length:{}\r\nDate: {} \r\n\r\nstatus_code: {}".format(len("304 Not Modified"), time.strftime('%a, %d %b %Y %H:%M:%S GMT', time.localtime(time.time())), "304 Not Modified (input same content)")
         else:
-            f = open("todolist.txt", 'w', encoding="UTF-8")
+            f = open("todolist.txt", 'w', encoding="UTF-8")  # txt파일을 열어서 수정된 내용을 write 하는 부분
             for i in range(idx-1):
                 f.write(todoList[i])
             f.write(update_todo)
@@ -81,8 +82,8 @@ while True:
         if idx > len(todoList):  # index의 범위를 벗어나면
             response_data = "HTTP/1.1 400 Bad Request\r\nContent-Type:text/html\r\nConnection: keep-alive\r\nContent-Length:{}\r\nDate: {} \r\n\r\nstatus_code: {}".format(len("400 Bad Request"), time.strftime('%a, %d %b %Y %H:%M:%S GMT', time.localtime(time.time())), "400 Bad Request (index out of range)")
         else:
-            del todoList[idx-1]
-            f = open("todolist.txt", 'w', encoding="UTF-8")
+            del todoList[idx-1]  # 입력받은 index부분을 todoList 리스트에서 제거
+            f = open("todolist.txt", 'w', encoding="UTF-8")  # txt파일을 열어서 제거된 내용을 write
             for i in range(len(todoList)):
                 f.write(todoList[i])
             f.close()
